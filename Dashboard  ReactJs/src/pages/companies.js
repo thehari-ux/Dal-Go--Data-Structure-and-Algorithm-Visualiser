@@ -71,7 +71,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Learn and Partice | Dal-Go
+        Learn and Practice | Dal-Go
       </title>
     </Head>
     <Box
