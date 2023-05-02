@@ -9,6 +9,7 @@ export const Layout = (props) => {
   const { children } = props;
 
   return (
+    
     <Box
       component="main"
       sx={{
@@ -16,6 +17,8 @@ export const Layout = (props) => {
         flex: '1 1 auto'
       }}
     >
+      
+       
       <Grid
         container
         sx={{ flex: '1 1 auto' }}
