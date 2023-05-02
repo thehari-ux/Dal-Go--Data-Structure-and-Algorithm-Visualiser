@@ -53,17 +53,12 @@ const data = [
   },
   {
     id: '5e86805e2bafd54f66cc95c3',
-    address: {
-      city: 'San Diego',
-      country: 'USA',
-      state: 'California',
-      street: '75247'
-    },
+    point : 2937,
     avatar: '/assets/avatars/avatar-miron-vitold.png',
     createdAt: subDays(subHours(now, 7), 3).getTime(),
     email: 'miron.vitold@devias.io',
     name: 'Miron Vitold',
-    phone: '972-333-4106'
+    rank: 8
   },
   {
     id: '5e887a1fbefd7938eea9c981',
