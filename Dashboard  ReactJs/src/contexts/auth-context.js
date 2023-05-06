@@ -83,7 +83,7 @@ export const AuthProvider = (props) => {
     if (isAuthenticated) {
       const user = {
         id: '5e86809283e28b96d2d38537',
-        avatar: '/assets/avatars/avatar-anika-visser.png',
+        avatar: '',
         name: 'Harikrishnan B',
         email: 'hari@dalgo'
       };
@@ -116,7 +116,7 @@ export const AuthProvider = (props) => {
 
     const user = {
       id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
+      avatar: '',
       name: 'Harikrishnan B',
       email: 'hari@dalgo'
     };

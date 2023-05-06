@@ -185,7 +185,7 @@ const Page = () => {
                   sx={{py:0 }}
                   onClick={handleSkip}
                 >
-                  Login using Google
+                  LOGIN WITH GOOGLE
                 </Button>
                 <Alert
                   color="primary"
