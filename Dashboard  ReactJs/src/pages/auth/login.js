@@ -124,10 +124,7 @@ const Page = () => {
                 label="Email"
                 value="email"
               />
-              <Tab
-                label="Phone Number"
-                value="phoneNumber"
-              />
+              
             </Tabs>
             {method === 'email' && (
               <form
@@ -144,7 +141,7 @@ const Page = () => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="email"
-                    value={formik.values.email}
+                    
                   />
                   <TextField
                     error={!!(formik.touched.password && formik.errors.password)}
@@ -155,12 +152,10 @@ const Page = () => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="password"
-                    value={formik.values.password}
+                    
                   />
                 </Stack>
-                <FormHelperText sx={{ mt: 1 }}>
-                  Optionally you can skip.
-                </FormHelperText>
+                
                 {formik.errors.submit && (
                   <Typography
                     color="error"
@@ -179,13 +174,18 @@ const Page = () => {
                 >
                   Continue
                 </Button>
+                <Typography variant="h6"
+                 sx={{ px:28,
+                       py:2}}>
+                  OR
+               </Typography>
                 <Button
                   fullWidth
                   size="large"
-                  sx={{ mt: 3 }}
+                  sx={{py:0 }}
                   onClick={handleSkip}
                 >
-                  Skip authentication
+                  LOGIN WITH GOOGLE
                 </Button>
                 <Alert
                   color="primary"
