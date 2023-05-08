@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { signInWithGoogle } from './firebase'
+
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,6 +20,7 @@ import {
 } from '@mui/material';
 import { useAuth } from 'src/hocs/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
+import { ProviderId, getAuth, signInWithPopup } from 'firebase/auth';
 
 const Page = () => {
   const router = useRouter();
@@ -59,16 +62,12 @@ const Page = () => {
     []
   );
 
-  const handleSkip = useCallback(
-    () => {
-      auth.skip();
-      router.push('/');
-    },
-    [auth, router]
-  );
 
   return (
     <>
+
+      
+
       <Head>
         <title>
           Login | Dal-Go
@@ -179,14 +178,17 @@ const Page = () => {
                        py:2}}>
                   OR
                </Typography>
+
+               {
                 <Button
                   fullWidth
                   size="large"
                   sx={{py:0 }}
-                  onClick={handleSkip}
+                  onClick={signInWithGoogle}
+                  
                 >
-                  LOGIN WITH GOOGLE
-                </Button>
+                  SIGN IN WITH GOOGLE
+                </Button>}
                 <Alert
                   color="primary"
                   severity="info"
