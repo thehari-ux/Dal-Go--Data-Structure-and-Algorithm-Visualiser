@@ -19,7 +19,7 @@ import {
   ForwardIcon,
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
-import { GithubLogo } from "./GithubLogo";
+
 import AlgoSelect from "./AlgoSelect";
 import {
   dijkstra,
@@ -292,10 +292,7 @@ const GridBoard = () => {
             <CubeTransparentIcon className="h-5 w-5 mr-2" /> Generate random
             maze
           </button>
-          <span
-            className="md:block hidden h-6 w-px bg-gray-600"
-            aria-hidden="true"
-          />
+          
           <button
             className="items-center w-fit disabled:bg-gray-400 disabled:cursor-not-allowed inline-flex bg-gray-600 text-[15px] text-white px-4 py-2 rounded-md"
             onClick={() => {
@@ -316,13 +313,7 @@ const GridBoard = () => {
             aria-hidden="true"
           />
 
-          <a
-            href={"https://github.com/wajeshubham/path-finder"}
-            target="_blank"
-            className="items-center w-fit disabled:bg-gray-400 disabled:cursor-not-allowed inline-flex bg-gray-600 text-[15px] text-white px-4 py-2 rounded-md"
-          >
-            <GithubLogo /> Source code
-          </a>
+        
           <span
             className="md:block hidden h-6 w-px bg-gray-600"
             aria-hidden="true"
