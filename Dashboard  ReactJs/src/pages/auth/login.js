@@ -1,4 +1,4 @@
-import { signInWithGoogle } from './firebase'
+import { useAuthContext } from 'src/contexts/auth-context'
 
 import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
@@ -23,6 +23,22 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { ProviderId, getAuth, signInWithPopup } from 'firebase/auth';
 
 const Page = () => {
+
+
+  const { handleSignInWithGoogle } = useAuthContext();
+
+  const handleClick = async () => {
+    try {
+      await handleSignInWithGoogle();
+      router.push('/'); // Redirect to home page
+    } catch (error) {
+      // Handle any errors here
+      console.log(error);
+    }
+  };
+
+
+
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState('email');
@@ -63,10 +79,19 @@ const Page = () => {
   );
 
 
+  const handleSkip = useCallback(
+    () => {
+      auth.skip();
+      router.push('/');
+    },
+    [auth, router]
+  );
+
+
   return (
     <>
 
-      
+
 
       <Head>
         <title>
@@ -123,7 +148,7 @@ const Page = () => {
                 label="Email"
                 value="email"
               />
-              
+
             </Tabs>
             {method === 'email' && (
               <form
@@ -140,7 +165,7 @@ const Page = () => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="email"
-                    
+
                   />
                   <TextField
                     error={!!(formik.touched.password && formik.errors.password)}
@@ -151,10 +176,10 @@ const Page = () => {
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="password"
-                    
+
                   />
                 </Stack>
-                
+
                 {formik.errors.submit && (
                   <Typography
                     color="error"
@@ -174,21 +199,24 @@ const Page = () => {
                   Continue
                 </Button>
                 <Typography variant="h6"
-                 sx={{ px:28,
-                       py:2}}>
+                  sx={{
+                    px: 28,
+                    py: 2
+                  }}>
                   OR
-               </Typography>
+                </Typography>
 
-               {
-                <Button
-                  fullWidth
-                  size="large"
-                  sx={{py:0 }}
-                  onClick={signInWithGoogle}
-                  
-                >
-                  SIGN IN WITH GOOGLE
-                </Button>}
+                {
+                  <Button
+                    fullWidth
+                    size="large"
+                    sx={{ py: 0 }}
+                    onClick={handleClick}
+
+
+                  >
+                    SIGN IN WITH GOOGLE
+                  </Button>}
                 <Alert
                   color="primary"
                   severity="info"
@@ -206,10 +234,10 @@ const Page = () => {
                   sx={{ mb: 1 }}
                   variant="h6"
                 >
-                  
+
                 </Typography>
                 <Typography color="text.secondary">
-                  
+
                 </Typography>
               </div>
             )}
