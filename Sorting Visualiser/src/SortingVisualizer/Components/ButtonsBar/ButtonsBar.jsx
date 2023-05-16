@@ -6,32 +6,14 @@ import "./ButtonsBar.css";
 export default class ButtonsBar extends Component {
   render() {
     return (
-      <div className="buttons-bar">
-        <button onClick={() => this.props.generateNewArray()} id="reset">
-          Generate New Array
-        </button>
-        <button
-          id="bubbleSortButton"
-          onClick={() => this.props.bubbleSort()}
-          className="buttonStyle1"
-        >
-          Bubble Sort
-        </button>
-        <button
-          id="selectionSortButton"
-          onClick={() => this.props.selectionSort()}
-          className="buttonStyle2"
-        >
-          Selection Sort
-        </button>
-        <button
-          id="insertionSortButton"
-          onClick={() => this.props.insertionSort()}
-          className="buttonStyle1"
-        >
-          Insertion Sort
-        </button>
-      </div>
+      <div>
+      <button onClick={this.props.generateNewArray}>Generate New Array</button>
+      <button onClick={this.props.bubbleSort}>Bubble Sort</button>
+      <button onClick={this.props.selectionSort}>Selection Sort</button>
+      <button onClick={this.props.insertionSort}>Insertion Sort</button>
+      <button onClick={this.updateUserInputArray}>Input Array</button>
+
+    </div>
     );
   }
 }

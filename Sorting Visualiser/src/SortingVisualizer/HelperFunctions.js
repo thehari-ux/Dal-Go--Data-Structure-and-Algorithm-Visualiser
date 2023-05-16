@@ -76,12 +76,27 @@ export function enableButtons() {
 
 // ## Disables all the buttons ## //
 export function disableButtons() {
-  document.getElementById("reset").disabled = true;
-  document.getElementById("bubbleSortButton").disabled = true;
-  document.getElementById("selectionSortButton").disabled = true;
-  document.getElementById("insertionSortButton").disabled = true;
-  document.getElementById("range-slider").style.opacity = 0;
-  document.getElementById("range-slider").style.visibility = "hidden";
+  const resetButton = document.getElementById("reset");
+  if (resetButton) {
+    resetButton.disabled = true;
+  }
+  const bubbleSortButton = document.getElementById("bubbleSortButton");
+  if (bubbleSortButton) {
+    bubbleSortButton.disabled = true;
+  }
+  const selectionSortButton = document.getElementById("selectionSortButton");
+  if (selectionSortButton) {
+    selectionSortButton.disabled = true;
+  }
+  const insertionSortButton = document.getElementById("insertionSortButton");
+  if (insertionSortButton) {
+    insertionSortButton.disabled = true;
+  }
+  const rangeSlider = document.getElementById("range-slider");
+  if (rangeSlider) {
+    rangeSlider.style.opacity = 0;
+    rangeSlider.style.visibility = "hidden";
+  }
 }
 
 // ## Plays audio ## //

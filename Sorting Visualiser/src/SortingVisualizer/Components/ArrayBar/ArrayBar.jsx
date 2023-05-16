@@ -1,5 +1,3 @@
-// ## This component includes all the 3D bars/containers and array values. ## //
-
 import React, { Component } from "react";
 import "./ArrayBar.css";
 
@@ -10,6 +8,7 @@ export default class BarContainer extends Component {
         {/* Create n bars, where n - size of the array */}
         {this.props.array.map((value, i) => (
           <div className="bar" key={i}>
+            <div className="value">{value}</div>
             <div className="side top"></div>
             <div className="side bottom"></div>
             <div className="side right">

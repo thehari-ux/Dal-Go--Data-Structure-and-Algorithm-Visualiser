@@ -22,3 +22,55 @@
     #2d575d
   );
 }
+
+.input-container {
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin-right: 2%;
+  font-size: medium;
+  color: white;
+}
+
+input {
+  height: 70%;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-radius: 50vw;
+  font-size: medium;
+  color: white;
+  background-color: black;
+  transition: 0.3s;
+}
+@media only screen and (max-width: 510px) {
+  input {
+    font-size: small;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  input {
+    font-size: x-small;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  input {
+    font-size: xx-small;
+  }
+}
+
+input:hover {
+  font-style: bold;
+  border-width: 0.3vh;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+}
