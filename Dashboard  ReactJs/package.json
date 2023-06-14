@@ -1,5 +1,16 @@
 {
   "name": "material-kit-react",
+  "proxy": {
+    "/sorting": {
+      "target": "http://localhost:3001"
+    },
+    "/ds": {
+      "target": "http://localhost:4050/dataStructures"
+    },
+    "/pathfinder": {
+      "target": "http://localhost:5173/"
+    }
+  },
   "version": "3.0.0",
   "author": "Devias",
   "licence": "MIT",

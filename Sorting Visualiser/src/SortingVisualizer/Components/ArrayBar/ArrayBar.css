@@ -68,3 +68,9 @@
   font-weight: bold;
   color: white;
 }
+
+.bar.sorted {
+  /* Specify the style for the bars belonging to the sortedArray */
+  background-color: #2ecc71;
+}
+
