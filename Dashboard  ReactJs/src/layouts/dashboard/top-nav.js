@@ -3,6 +3,7 @@ import BellIcon from '@heroicons/react/24/solid/BellIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
 import MagnifyingGlassIcon from '@heroicons/react/24/solid/MagnifyingGlassIcon';
+
 import {
   Avatar,
   Badge,
@@ -16,12 +17,36 @@ import {
 import { alpha } from '@mui/material/styles';
 import { usePopover } from 'src/hocs/hooks/use-popover';
 import { AccountPopover } from './account-popover';
+import { auth, signInWithGoogle } from 'src/pages/auth/firebase';
+
+import { useEffect, useState } from "react";
+
+
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 
 export const TopNav = (props) => {
-  const { onNavOpen } = props;
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Listen for changes in authentication state
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        const { displayName, email, photoURL } = user;
+        setUser({ displayName, email, photoURL });
+      } else {
+        // User is signed out
+        setUser(null);
+      }
+    });
+
+    // Unsubscribe on unmount
+    return unsubscribe;
+  }, []);
+  const { onNavOpen, userName } = props;
+
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const accountPopover = usePopover();
 
@@ -65,7 +90,7 @@ export const TopNav = (props) => {
                 </SvgIcon>
               </IconButton>
             )}
-            
+
           </Stack>
           <Stack
             alignItems="center"
@@ -100,16 +125,21 @@ export const TopNav = (props) => {
                 height: 40,
                 width: 40
               }}
-              src="/assets/avatars/avatar-anika-visser.png"
+              src={user?.photoURL} alt="Profile"
             />
+
           </Stack>
         </Stack>
       </Box>
+
       <AccountPopover
         anchorEl={accountPopover.anchorRef.current}
         open={accountPopover.open}
         onClose={accountPopover.handleClose}
+        userName={user ? user.displayName : ''}
       />
+
+
     </>
   );
 };

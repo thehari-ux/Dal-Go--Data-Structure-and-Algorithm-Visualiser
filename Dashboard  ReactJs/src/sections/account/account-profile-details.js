@@ -11,34 +11,54 @@ import {
   Unstable_Grid2 as Grid
 } from '@mui/material';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  },
-  {
-    value: 'los-angeles',
-    label: 'Los Angeles'
-  }
-];
+import { auth, signInWithGoogle } from 'src/pages/auth/firebase';
+
+import { useEffect } from "react";
+
+
 
 export const AccountProfileDetails = () => {
+
+  const [user, setUser] = useState(null);
+
   const [values, setValues] = useState({
-    firstName: 'Anika',
-    lastName: 'Visser',
-    email: 'demo@devias.io',
+    firstName: '',
+    lastName: '',
+    email: '',
     phone: '',
-    state: 'los-angeles',
-    country: 'USA'
   });
+
+  useEffect(() => {
+    // Listen for changes in authentication state
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        const { displayName, email, photoURL } = user;
+        const [firstName, lastName] = displayName.split(" "); // Split display name into two parts
+        setUser({ displayName, email, photoURL });
+        setValues((prevValues) => ({
+          ...prevValues,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        }));
+      } else {
+        // User is signed out
+        setUser(null);
+        setValues((prevValues) => ({
+          ...prevValues,
+          firstName: '',
+          lastName: '',
+          email: '',
+        }));
+      }
+    });
+
+    // Unsubscribe on unmount
+    return unsubscribe;
+  }, []);
+
+
 
   const handleChange = useCallback(
     (event) => {
@@ -131,38 +151,13 @@ export const AccountProfileDetails = () => {
                 xs={12}
                 md={6}
               >
-                <TextField
-                  fullWidth
-                  label="Country"
-                  name="country"
-                  onChange={handleChange}
-                  required
-                  value={values.country}
-                />
+
               </Grid>
               <Grid
                 xs={12}
                 md={6}
               >
-                <TextField
-                  fullWidth
-                  label="Select State"
-                  name="state"
-                  onChange={handleChange}
-                  required
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.state}
-                >
-                  {states.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
+
               </Grid>
             </Grid>
           </Box>

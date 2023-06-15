@@ -1,10 +1,14 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { signInWithGoogle } from 'src/pages/auth/firebase';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
   SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT'
+  SIGN_OUT: 'SIGN_OUT',
+  SIGN_IN_WITH_GOOGLE: 'SIGN_IN_WITH_GOOGLE',
 };
 
 const initialState = {
@@ -34,6 +38,15 @@ const handlers = {
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
+    const user = action.payload;
+
+    return {
+      ...state,
+      isAuthenticated: true,
+      user
+    };
+  },
+  [HANDLERS.SIGN_IN_WITH_GOOGLE]: (state, action) => {
     const user = action.payload;
 
     return {
@@ -83,7 +96,7 @@ export const AuthProvider = (props) => {
     if (isAuthenticated) {
       const user = {
         id: '5e86809283e28b96d2d38537',
-        avatar: '/assets/avatars/avatar-anika-visser.png',
+        avatar: '',
         name: 'Harikrishnan B',
         email: 'hari@dalgo'
       };
@@ -116,7 +129,7 @@ export const AuthProvider = (props) => {
 
     const user = {
       id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
+      avatar: '',
       name: 'Harikrishnan B',
       email: 'hari@dalgo'
     };
@@ -138,7 +151,7 @@ export const AuthProvider = (props) => {
       console.error(err);
     }
 
-    const user = {
+    const users = {
       id: '5e86809283e28b96d2d38537',
       avatar: '/assets/avatars/avatar-anika-visser.png',
       name: 'Harikrishnan B',
@@ -147,19 +160,57 @@ export const AuthProvider = (props) => {
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: users
     });
   };
+
+
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      const newuser = await signInWithGoogle();
+      if (newuser) {
+
+        window.sessionStorage.setItem('authenticated', 'true');
+
+        const user = {
+          id: newuser.uid,
+          avatar: newuser.photoURL,
+          name: newuser.displayName,
+          email: newuser.email.toLowerCase(),
+        };
+
+        dispatch({
+          type: HANDLERS.SIGN_IN_WITH_GOOGLE,
+          payload: user,
+        });
+
+        // do something with the user data
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
 
   const signUp = async (email, name, password) => {
     throw new Error('Sign up is not implemented');
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    try {
+      await firebase.auth().signOut(); // sign out from Google authentication
+    } catch (error) {
+      console.error(error);
+    }
+
     dispatch({
       type: HANDLERS.SIGN_OUT
     });
   };
+
 
   return (
     <AuthContext.Provider
@@ -168,7 +219,8 @@ export const AuthProvider = (props) => {
         skip,
         signIn,
         signUp,
-        signOut
+        signOut,
+        handleSignInWithGoogle
       }}
     >
       {children}

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { useAuth } from 'src/hocs/hooks/use-auth';
 
+
 export const AccountPopover = (props) => {
-  const { anchorEl, onClose, open } = props;
+  const { anchorEl, onClose, open, userName } = props; // Retrieve user name prop
   const router = useRouter();
   const auth = useAuth();
 
@@ -42,7 +43,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          Harikrishnan B
+          {userName} {/* Display user name */}
         </Typography>
       </Box>
       <Divider />
@@ -67,5 +68,6 @@ export const AccountPopover = (props) => {
 AccountPopover.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
+  userName: PropTypes.string // Add user name prop type
 };
