@@ -23,7 +23,11 @@ const companies = [
     description: 'A software tool that helps users to better understand how different sorting algorithms work by visualizing the sorting process in real-time.',
     logo: '',
     title: 'Sorting Visualiser',
+ main
+    downloads: '',
+    proxy: 'http://localhost:3001' //change the proxy accordingly
     downloads: ''
+ main
   },
   {
     id: 'ed2b900870ceba72d203ec15',
@@ -31,7 +35,13 @@ const companies = [
     description: 'A software tool that helps users to find the shortest path between two points in a graph or a network.',
     logo: '',
     title: 'Path Finder',
+ main
+    downloads: '',
+    proxy: 'http://localhost:5173/'   //change the proxy accordingly
+
+
     downloads: ''
+ main
   },
   {
     id: 'a033e38768c82fca90df3db7',
@@ -39,7 +49,13 @@ const companies = [
     description: 'a software tool that helps users to better understand how different data structures work by visualizing the structure in a graphical interface.',
     logo: '',
     title: 'DS Visualiser',
+ main
+    downloads: '',
+    proxy: 'http://localhost:4050/dataStructures' //change the proxy accordingly
+
+
     downloads: ''
+ main
   },
   {
     id: '1efecb2bf6a51def9869ab0f',
@@ -47,7 +63,12 @@ const companies = [
     description: '',
     logo: '',
     title: 'Nameaz',
+ main
+    downloads: '',
+    proxy: ''
+
     downloads: ''
+ main
   },
   {
     id: '1ed68149f65fbc6089b5fd07',
@@ -55,7 +76,12 @@ const companies = [
     description: '',
     logo: '',
     title: 'Namebz',
+ main
+    downloads: '',
+    proxy: ''
+
     downloads: ''
+ main
   },
   {
     id: '5dab321376eff6177407e887',
@@ -63,7 +89,12 @@ const companies = [
     description: '',
     logo: '',
     title: 'Namecz',
+ main
+    downloads: '',
+    proxy: ''
+
     downloads: ''
+ main
   }
 ];
 
@@ -97,25 +128,37 @@ const Page = () => (
                 direction="row"
                 spacing={1}
               >
+ main
+                {companies.map((company) => (
+                  <Button
+                    key={company.id}
+                    variant="contained"
+                    startIcon={<PlusIcon />}
+                    onClick={() => {
+
+                      window.open(company.proxy, '_blank');//integration
+                      // Handle button click for the company
+                    }}
+                  >
+                    {company.title}
+                  </Button>
+                ))}
+              </Stack>
+            </Stack>
+            <div></div>
+
 
               </Stack>
             </Stack>
             <div>
             
             </div>
+ main
           </Stack>
           <CompaniesSearch />
-          <Grid
-            container
-            spacing={3}
-          >
+          <Grid container spacing={3}>
             {companies.map((company) => (
-              <Grid
-                xs={12}
-                md={6}
-                lg={4}
-                key={company.id}
-              >
+              <Grid xs={12} md={6} lg={4} key={company.id}>
                 <CompanyCard company={company} />
               </Grid>
             ))}
@@ -126,10 +169,7 @@ const Page = () => (
               justifyContent: 'center'
             }}
           >
-            <Pagination
-              count={3}
-              size="small"
-            />
+            <Pagination count={3} size="small" />
           </Box>
         </Stack>
       </Container>
@@ -137,10 +177,6 @@ const Page = () => (
   </>
 );
 
-Page.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
